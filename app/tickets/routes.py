@@ -63,7 +63,7 @@ def add_comment(ticket_id):
     return redirect(url_for('tickets.view_ticket', id=ticket_id))
 
 
-# The route to view a psecific ticket
+# The route to view a specific ticket
 @bp.route('/tickets/<int:id>')
 @login_required
 def view_ticket(id):
