@@ -1,0 +1,45 @@
+{% extends "base.html" %} {% block title %}Create Ticket{% endblock %} {% block
+content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <h1>Create New Ticket</h1>
+      {# The below code is the ticket creation form with all relevant fields #}
+      <form method="POST">
+        {{ form.hidden_tag() }} {# Title field with validation e.g. making sure
+        field is not empty #}
+        <div class="mb-3">
+          {{ form.title.label(class="form-label") }} {{
+          form.title(class="form-control") }} {% for error in form.title.errors
+          %}
+          <span class="text-danger">{{ error }}</span>
+          {% endfor %}
+        </div>
+        {# Description field with validation #}
+        <div class="mb-3">
+          {{ form.description.label(class="form-label") }} {{
+          form.description(class="form-control", rows="5") }} {% for error in
+          form.description.errors %}
+          <span class="text-danger">{{ error }}</span>
+          {% endfor %}
+        </div>
+        {# Priority field with validation #}
+        <div class="mb-3">
+          {{ form.priority.label(class="form-label") }} {{
+          form.priority(class="form-select") }} {% for error in
+          form.priority.errors %}
+          <span class="text-danger">{{ error }}</span>
+          {% endfor %}
+        </div>
+        {# Submit and Cancel buttons #} {{ form.submit(class="btn btn-primary")
+        }}
+        <a
+          href="{{ url_for('tickets.list_tickets') }}"
+          class="btn btn-secondary"
+          >Cancel</a
+        >
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

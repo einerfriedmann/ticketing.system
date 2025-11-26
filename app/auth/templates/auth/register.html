@@ -1,0 +1,51 @@
+{% extends "base.html" %} {% block title %}Register{% endblock %} {% block
+content %}
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    {# This section is the registration card containing the form #}
+    <div class="card">
+      <div class="card-header">
+        <h2>Register</h2>
+      </div>
+      <div class="card-body">
+        <form method="POST" action="{{ url_for('auth.register') }}">
+          {{ form.hidden_tag() }} {# Username field with validation errors #}
+          <div class="mb-3">
+            {{ form.username.label(class="form-label") }} {{
+            form.username(class="form-control") }} {% for error in
+            form.username.errors %}
+            <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+          </div>
+          {# Email field with validation errors #}
+          <div class="mb-3">
+            {{ form.email.label(class="form-label") }} {{
+            form.email(class="form-control") }} {% for error in
+            form.email.errors %}
+            <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+          </div>
+          {# Password fields also with validation errors #}
+          <div class="mb-3">
+            {{ form.password.label(class="form-label") }} {{
+            form.password(class="form-control") }} {% for error in
+            form.password.errors %}
+            <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+          </div>
+          {# Final field for password confirmation #}
+          <div class="mb-3">
+            {{ form.password2.label(class="form-label") }} {{
+            form.password2(class="form-control") }} {% for error in
+            form.password2.errors %}
+            <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+          </div>
+          {# Submit button at the end of the form #} {{ form.submit(class="btn
+          btn-primary") }}
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

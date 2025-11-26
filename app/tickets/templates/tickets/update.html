@@ -1,0 +1,63 @@
+{% extends "base.html" %} {% block title %}Update Ticket{% endblock %} {% block
+content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      {# The card for the ticekt update form #}
+      <div class="card">
+        <div class="card-header">
+          <h2>Update Ticket</h2>
+        </div>
+        <div class="card-body">
+          {# Form for updating tickets #}
+            <form method="POST">
+                {{ form.hidden_tag() }} {# Title field with validation erros like
+                making sure it is not empty etc #}
+                <div class="mb-3">
+                    {{ form.title.label(class="form-label") }} {{
+              form.title(class="form-control")
+                    }} {% for error in
+                    form.title.errors %}
+                    <span class="text-danger">{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {# Description field with validation errors #}
+                <div class="mb-3">
+                    {{ form.description.label(class="form-label") }} {{
+              form.description(class="form-control", rows="5")
+                    }} {% for error
+                    in form.description.errors %}
+                    <span class="text-danger">{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {# Priority field with validation errors #}
+                <div class="mb-3">
+                    {{ form.priority.label(class="form-label") }} {{
+              form.priority(class="form-select")
+                    }} {% for error in
+                    form.priority.errors %}
+                    <span class="text-danger">{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% if form.status %}
+                <div class="mb-3">
+                    {{ form.status.label(class="form-label") }}
+                    {{ form.status(class="form-select") }}
+                    {% for error in form.status.errors %}
+                    <div class="text-danger">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {# Submit and Cancel buttons #}
+                <div class="mb-3">
+                    {{form.submit(class="btn btn-primary")}}
+                    <a href="{{ url_for('tickets.list_tickets') }}"
+                       class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

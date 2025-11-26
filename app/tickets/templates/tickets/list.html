@@ -1,0 +1,59 @@
+{% extends "base.html" %} {% block title %}Tickets{% endblock %} {% block
+content %}
+<div class="container">
+  <h1>Help Desk Tickets</h1>
+  {# Create the new ticket button #}
+  <div class="mb-3">
+    <a href="{{ url_for('tickets.create_ticket') }}" class="btn btn-primary"
+      >Create New Ticket</a
+    >
+  </div>
+
+  {# Loops through and checks if there are any tickets #} {% if tickets %} {%
+  for ticket in tickets %}
+  <div class="card mb-3">
+    <div class="card-body">
+      {# Shows the ticket title #}
+      <h5 class="card-title">{{ ticket.title }}</h5>
+      {# Shows the ticket priority and description #}
+      <h6 class="text-muted">Priority: {{ ticket.priority }}</h6>
+      <p class="card-text">{{ ticket.description }}</p>
+      {# Shows the ticket status #}
+      <p>Status: {{ ticket.status }}</p>
+      {# These are the action buttons for each ticket #}
+      <div>
+        <a
+          href="{{ url_for('tickets.view_ticket', id=ticket.id) }}"
+          class="btn btn-info"
+          >View</a
+        >
+        <a
+          href="{{ url_for('tickets.update_ticket', id=ticket.id) }}"
+          class="btn btn-warning"
+          >Edit</a
+        >
+        {# This statement shows the admin only delete button wtih a confirmation
+        #} {% if current_user.is_admin %}
+        <a
+          href="{{ url_for('tickets.delete_ticket', id=ticket.id) }}"
+          class="btn btn-danger"
+          onclick="return confirm('Are you sure you want to delete this ticket?');"
+          >Delete</a
+        >
+        {% endif %}
+      </div>
+
+      {# The ticket creation details #}
+      <div class="mt-2">
+        <small class="text-muted"
+          >Created by: {{ ticket.author.username }} at {{
+          ticket.created_at.strftime('%Y-%m-%d %H:%M') }}</small
+        >
+      </div>
+    </div>
+  </div>
+  {% endfor %} {% else %} {# Shows a message if no tickets are found #}
+  <div class="alert alert-info">No tickets found.</div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content%}
+
+<div class="container">
+  {# Welcome message #}
+  <h1>Welcome to the Helpdesk Service!</h1>
+
+  {# Card holding the user's information #}
+  <div class="card">
+    <div class="card-body">
+      {# Greeting the logged in user #}
+      <h5 class="card-title">Hello, {{ current_user.username }}!</h5>
+      {% if current_user.is_admin %} {# This holds admin specific information #}
+      <p class="card-text">You are logged in as an administrator.</p>
+      <div class="alert alert-info">
+        As an administrator, you have full access to:
+        <ul>
+          <li>Create, view, edit, and delete tickets</li>
+          <li>Manage user permissions</li>
+          <li>View all system tickets</li>
+        </ul>
+      </div>
+      {% else %} {# Otherwise they will be shown regular user information #}
+      <p class="card-text">You are logged in as a regular user.</p>
+      {% endif %} {# Action buttons #}
+      <div class="mt-3">
+        <a href="{{ url_for('tickets.list_tickets') }}" class="btn btn-primary"
+          >View Tickets</a
+        >
+        <a href="{{ url_for('tickets.create_ticket') }}" class="btn btn-success"
+          >Create New Ticket</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
